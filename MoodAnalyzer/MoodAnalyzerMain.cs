@@ -17,11 +17,18 @@ namespace MoodAnalyzer
         }
         public string analyzeMood()
         {
-            message = message.ToLower();
-            if (message.Contains("happy"))
+            try
+            {
+                message.ToLower();
+                if (message.Contains("happy"))
+                    return "Happy";
+                else
+                    return "Sad";
+            }
+            catch (NullReferenceException ex)
+            {
                 return "Happy";
-            else
-                return "Sad";
+            }
         }
         
     }
