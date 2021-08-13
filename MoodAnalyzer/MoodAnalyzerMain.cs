@@ -6,11 +6,16 @@ namespace MoodAnalyzer
 {
     public class MoodAnalyzerMain
     {
+        public string message;
         public MoodAnalyzerMain()
         {
 
         }
-        public string analyzeMood(string message)
+        public MoodAnalyzerMain(string message)
+        {
+            this.message = message;
+        }
+        public string analyzeMood()
         {
             message = message.ToLower();
             if (message.Contains("happy"))

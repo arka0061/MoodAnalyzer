@@ -15,8 +15,8 @@ namespace MoodAnalyzerTest
         [Test]
         public void GivenSadMessage_WhenAnalyze_ShouldReturnSad()
         {
-            MoodAnalyzerMain mood = new MoodAnalyzerMain();
-            string actual = mood.analyzeMood("I am in Sad Mood");
+            MoodAnalyzerMain mood = new MoodAnalyzerMain("I am in Sad Mood");
+            string actual = mood.analyzeMood(); 
             Assert.AreEqual(actual,"Sad");
         }
         /// <summary>
@@ -25,8 +25,8 @@ namespace MoodAnalyzerTest
         [Test]
         public void GivenHappyMessage_WhenAnalyze_ShouldReturnHappy()
         {
-            MoodAnalyzerMain mood = new MoodAnalyzerMain();
-            string actual = mood.analyzeMood("I am in Happy Mood");
+            MoodAnalyzerMain mood = new MoodAnalyzerMain("I am in Happy Mood");
+            string actual = mood.analyzeMood();
             Assert.AreEqual(actual, "Happy");
         }
     }
