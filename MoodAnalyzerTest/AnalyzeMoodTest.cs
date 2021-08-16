@@ -39,6 +39,10 @@ namespace MoodAnalyzerTest
             string actual = mood.AnalyzeMood();
             Assert.AreEqual(actual, "Happy");
         }
+        /// <summary>
+        /// TC-3.1
+        /// </summary>
+        [Test]
         public void GivenNullMood_WhenAnalyze_ShouldReturnException()
         {
             string expected = "Mood should not be null";
