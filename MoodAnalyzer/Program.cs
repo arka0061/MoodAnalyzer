@@ -7,9 +7,9 @@ namespace MoodAnalyzer
         public static void Main(string[] args)
         {
             Console.WriteLine("Welcome To Mood Analyzer!");
-            MoodAnalyzerMain mood = new MoodAnalyzerMain("I am in a Happy Mood");           
-            string message = mood.analyzeMood();        
-            Console.WriteLine("Mood is " + message);
+            MoodAnalyzerMain mood = new MoodAnalyzerMain(null);           
+            string message = mood.AnalyzeMood();        
+            Console.WriteLine(message);
         }
     }
 }
