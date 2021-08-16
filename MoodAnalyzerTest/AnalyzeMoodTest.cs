@@ -16,7 +16,7 @@ namespace MoodAnalyzerTest
         public void GivenSadMessage_WhenAnalyze_ShouldReturnSad()
         {
             MoodAnalyzerMain mood = new MoodAnalyzerMain("I am in Sad Mood");
-            string actual = mood.analyzeMood(); 
+            string actual = mood.AnalyzeMood(); 
             Assert.AreEqual(actual,"Sad");
         }
         /// <summary>
@@ -26,7 +26,7 @@ namespace MoodAnalyzerTest
         public void GivenHappyMessage_WhenAnalyze_ShouldReturnHappy()
         {
             MoodAnalyzerMain mood = new MoodAnalyzerMain("I am in Happy Mood");
-            string actual = mood.analyzeMood();
+            string actual = mood.AnalyzeMood();
             Assert.AreEqual(actual, "Happy");
         }
         /// <summary>
@@ -36,9 +36,38 @@ namespace MoodAnalyzerTest
         public void GivenNullMessage_WhenAnalyze_ShouldReturnException()
         {
             MoodAnalyzerMain mood = new MoodAnalyzerMain(null);
-            string actual = mood.analyzeMood();
+            string actual = mood.AnalyzeMood();
             Assert.AreEqual(actual, "Happy");
         }
-
+        public void GivenNullMood_WhenAnalyze_ShouldReturnException()
+        {
+            string expected = "Mood should not be null";
+            try
+            {
+                MoodAnalyzerMain mood = new MoodAnalyzerMain(null);
+                string actual = mood.AnalyzeMood();
+            }
+            catch (MoodAnalyzerException ex)
+            {
+                Assert.AreEqual(expected, ex.Message);
+            }
+        }
+        /// <summary>
+        /// TC-3.2
+        /// </summary>
+        [Test]
+        public void GivenEmptyMood_WhenAnalyze_ShouldReturnException()
+        {
+            string expected = "Mood should not be empty";
+            try
+            {
+                MoodAnalyzerMain moodAnalyser = new MoodAnalyzerMain("");
+                string actual = moodAnalyser.AnalyzeMood();
+            }
+            catch (MoodAnalyzerException ex)
+            {
+                Assert.AreEqual(expected, ex.Message);
+            }
+        }
     }
 }
