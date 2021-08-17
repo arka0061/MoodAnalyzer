@@ -73,5 +73,47 @@ namespace MoodAnalyzerTest
                 Assert.AreEqual(expected, ex.Message);
             }
         }
+        /// <summary>
+        /// TC 4.1
+        /// </summary>
+        [Test]
+        public void GivenMoodAnalyzerReflection_WhenAnalyze_ShouldReturnObject()
+        {
+            object expected = new MoodAnalyzerMain();
+            object actual = MoodAnalyzerFactory.CreateMoodAnalyzerObject("MoodAnalyzer.MoodAnalyzerMain", "MoodAnalyzerMain");
+            expected.Equals(actual);
+        }
+       /// <summary>
+       /// TC 4.2
+       /// </summary>
+        [Test]
+        public void GivenImproperClassName_WhenAnalyze_ShouldReturnMoodAnalyzerException()
+        {
+            string expected = "Class not found";
+            try
+            {
+                object actual = MoodAnalyzerFactory.CreateMoodAnalyzerObject("MoodAnalyzer.MoodAnalyzerMain", "MoodAnalyzerMain");
+            }
+            catch (MoodAnalyzerException e)
+            {
+                Assert.AreEqual(expected, e.Message);
+            }
+        }
+        /// <summary>
+        /// TC-4.3 
+        /// </summary>
+        [Test]
+        public void GivenImproperConstructorName_WhenAnalyze_ShouldReturnMoodAnalyzerException()
+        {
+            string expected = "Constructor not found";
+            try
+            {
+                object actual = MoodAnalyzerFactory.CreateMoodAnalyzerObject("MoodAnalyzer.MoodAnalyzerMain", "MoodAnalyzerMain");
+            }
+            catch (MoodAnalyzerException e)
+            {
+                Assert.AreEqual(expected, e.Message);
+            }
+        }
     }
 }
