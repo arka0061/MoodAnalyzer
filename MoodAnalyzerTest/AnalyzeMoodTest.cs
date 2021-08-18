@@ -129,7 +129,7 @@ namespace MoodAnalyzerTest
         /// TC 5.2 
         /// </summary>
         [Test]
-        public void GivenClassNameImproperParameterizedConstructor_WhenAnalyze_ShouldReturnMoodAnalysisException()
+        public void GivenClassNameImproperParameterizedConstructor_WhenAnalyze_ShouldReturnMoodAnalyzerException()
         {
             string expected = "Class not found";
             try
@@ -145,7 +145,7 @@ namespace MoodAnalyzerTest
         /// TC 5.3 
         /// </summary>
         [Test]
-        public void GivenImproperParameterizedConstructorName_WhenAnalyze_ShouldReturnMoodAnalysisException()
+        public void GivenImproperParameterizedConstructorName_WhenAnalyze_ShouldReturnMoodAnalyzerException()
         {
             string expected = "Constructor not found";
             try
@@ -171,7 +171,7 @@ namespace MoodAnalyzerTest
         /// TC 6.2 
         /// </summary>
         [Test]
-        public void GivenImproperMethodName_WhenAnalyze_ShouldReturnMoodAnalysisException()
+        public void GivenImproperMethodName_WhenAnalyze_ShouldReturnMoodAnalyzerException()
         {
             string expected = "No method found";
             try
