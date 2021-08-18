@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace MoodAnalyzer
 {
-    public class MoodAnalyzerFactory
+    public class MoodAnalyzerReflector
     {
         public static object CreateMoodAnalyzerObject(string className, string constructor)
         {
@@ -65,7 +65,7 @@ namespace MoodAnalyzer
             {
                 Type type = typeof(MoodAnalyzerMain);
                 MethodInfo methodInfo = type.GetMethod(methodName);             
-                object moodAnalyserObject = MoodAnalyzerFactory.CreateMoodAnalyserParameterizedConstructor("MoodAnalyzer.MoodAnalyzerMain", "MoodAnalyzerMain", message);
+                object moodAnalyserObject = MoodAnalyzerReflector.CreateMoodAnalyserParameterizedConstructor("MoodAnalyzer.MoodAnalyzerMain", "MoodAnalyzerMain", message);
                 object info = methodInfo.Invoke(moodAnalyserObject, null);
                 return info.ToString();
             }
@@ -74,6 +74,25 @@ namespace MoodAnalyzer
                 throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.METHOD_NOT_FOUND, "No method found");
             }
 
+        }
+        public static string SetFieldDynamic(string message, string fieldName)
+        {
+            try
+            {
+                MoodAnalyzerMain moodAnalyze = new MoodAnalyzerMain();
+                Type type = typeof(MoodAnalyzerMain);
+                FieldInfo fieldInfo = type.GetField(fieldName, BindingFlags.Public | BindingFlags.Instance);
+                if (message == null)
+                {
+                    throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NULL_MOOD, "Message should not be null");
+                }
+                fieldInfo.SetValue(moodAnalyze, message);
+                return moodAnalyze.message;
+            }
+            catch (NullReferenceException)
+            {
+                throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NO_SUCH_FIELD, "Field not found");
+            }
         }
     }
 }

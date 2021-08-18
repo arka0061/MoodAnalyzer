@@ -80,7 +80,7 @@ namespace MoodAnalyzerTest
         public void GivenMoodAnalyzerReflection_WhenAnalyze_ShouldReturnObject()
         {
             object expected = new MoodAnalyzerMain();
-            object actual = MoodAnalyzerFactory.CreateMoodAnalyzerObject("MoodAnalyzer.MoodAnalyzerMain", "MoodAnalyzerMain");
+            object actual = MoodAnalyzerReflector.CreateMoodAnalyzerObject("MoodAnalyzer.MoodAnalyzerMain", "MoodAnalyzerMain");
             expected.Equals(actual);
         }
        /// <summary>
@@ -92,7 +92,7 @@ namespace MoodAnalyzerTest
             string expected = "Class not found";
             try
             {
-                object actual = MoodAnalyzerFactory.CreateMoodAnalyzerObject("MoodAnalyzer.MoodAnalyzerMain", "MoodAnalyzerMain");
+                object actual = MoodAnalyzerReflector.CreateMoodAnalyzerObject("MoodAnalyzer.MoodAnalyzerMain", "MoodAnalyzerMain");
             }
             catch (MoodAnalyzerException e)
             {
@@ -108,7 +108,7 @@ namespace MoodAnalyzerTest
             string expected = "Constructor not found";
             try
             {
-                object actual = MoodAnalyzerFactory.CreateMoodAnalyzerObject("MoodAnalyzer.MoodAnalyzerMain", "MoodAnalyzerMain");
+                object actual = MoodAnalyzerReflector.CreateMoodAnalyzerObject("MoodAnalyzer.MoodAnalyzerMain", "MoodAnalyzerMain");
             }
             catch (MoodAnalyzerException e)
             {
@@ -122,19 +122,19 @@ namespace MoodAnalyzerTest
         public void GivenMoodAnalyserParameterizedConstructor_ShouldReturnObject()
         {
             object expected = new MoodAnalyzerMain("Parameterized Constructor");
-            object actual = MoodAnalyzerFactory.CreateMoodAnalyserParameterizedConstructor("MoodAnalyzer.MoodAnalyzerMain", "MoodAnalyser", "Parameterized Constructor");
+            object actual = MoodAnalyzerReflector.CreateMoodAnalyserParameterizedConstructor("MoodAnalyzer.MoodAnalyzerMain", "MoodAnalyser", "Parameterized Constructor");
             expected.Equals(actual);
         }
         /// <summary>
         /// TC 5.2 
         /// </summary>
         [Test]
-        public void GivenClassNameImproperParameterizedConstructor_WhenAnalyze_ShouldReturnMoodAnalysisException()
+        public void GivenClassNameImproperParameterizedConstructor_WhenAnalyze_ShouldReturnMoodAnalyzerException()
         {
             string expected = "Class not found";
             try
             {
-                object actual = MoodAnalyzerFactory.CreateMoodAnalyserParameterizedConstructor("MoodAnalyzer.MoodAnalyzerMain", "MoodAnalyzer", "Parameterized Constructor");
+                object actual = MoodAnalyzerReflector.CreateMoodAnalyserParameterizedConstructor("MoodAnalyzer.MoodAnalyzerMain", "MoodAnalyzer", "Parameterized Constructor");
             }
             catch (MoodAnalyzerException e)
             {
@@ -145,12 +145,12 @@ namespace MoodAnalyzerTest
         /// TC 5.3 
         /// </summary>
         [Test]
-        public void GivenImproperParameterizedConstructorName_WhenAnalyze_ShouldReturnMoodAnalysisException()
+        public void GivenImproperParameterizedConstructorName_WhenAnalyze_ShouldReturnMoodAnalyzerException()
         {
             string expected = "Constructor not found";
             try
             {
-                object actual = MoodAnalyzerFactory.CreateMoodAnalyserParameterizedConstructor("MoodAnalyzer.MoodAnalyzerMain", "MoodAnalyzer", "Parameterized Constructor");
+                object actual = MoodAnalyzerReflector.CreateMoodAnalyserParameterizedConstructor("MoodAnalyzer.MoodAnalyzerMain", "MoodAnalyzer", "Parameterized Constructor");
             }
             catch (MoodAnalyzerException e)
             {
@@ -164,24 +164,67 @@ namespace MoodAnalyzerTest
         public void InvokeMethodReflection_ShouldRetunHappy()
         {
             string expected = "happy";
-            string actual = MoodAnalyzerFactory.InvokeAnalyseMood("happy", "AnalyzeMood");
+            string actual = MoodAnalyzerReflector.InvokeAnalyseMood("happy", "AnalyzeMood");
             expected.Equals(actual);
         }
         /// <summary>
         /// TC 6.2 
         /// </summary>
         [Test]
-        public void GivenImproperMethodName_WhenAnalyze_ShouldReturnMoodAnalysisException()
+        public void GivenImproperMethodName_WhenAnalyze_ShouldReturnMoodAnalyzerException()
         {
             string expected = "No method found";
             try
             {
-                string actual = MoodAnalyzerFactory.InvokeAnalyseMood("I am happy", "Mood");
+                string actual = MoodAnalyzerReflector.InvokeAnalyseMood("I am happy", "Mood");
                 expected.Equals(actual);
             }
             catch (MoodAnalyzerException ex)
             {
                 Assert.AreEqual(expected, ex.Message);
+            }
+        }
+        /// <summary>
+        /// TC 7.1
+        /// </summary>
+        [Test]
+        public void GivenDynamicMood_WhenAnalyze_ShouldReturnHappy()
+        {
+            string expected = "Happy";
+            string actual = MoodAnalyzerReflector.SetFieldDynamic("Happy", "message");
+            expected.Equals(actual);
+        }
+        /// <summary>
+        /// TC 7.2
+        /// </summary>
+        public void GivenImproperFiledName_WhenAnalyze_ShouldThrowMoodAnalyzerException()
+        {
+            string expected = "Field not found";
+            try
+            {
+                string actual = MoodAnalyzerReflector.SetFieldDynamic("Happy", "message");
+                expected.Equals(actual);
+            }
+            catch (MoodAnalyzerException e)
+            {
+                Assert.AreEqual(expected, e.Message);
+            }
+        }
+        /// <summary>
+        /// TC 7.3
+        /// </summary>
+        [Test]
+        public void GivenNullMessage_WhenAnalyze_ShouldReturnMoodAnalyzerException()
+        {
+            string expected = "Message should not be null";
+            try
+            {
+                string actual = MoodAnalyzerReflector.SetFieldDynamic(null, "message");
+                expected.Equals(actual);
+            }
+            catch (MoodAnalyzerException e)
+            {
+                Assert.AreEqual(expected, e.Message);
             }
         }
     }
